@@ -3,6 +3,7 @@
 
 # Импортируем библиотеку pygame
 import pygame
+from math import fabs
 from pygame import *
 from player import *
 from blocks import *
@@ -12,6 +13,7 @@ WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 400  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 BACKGROUND_COLOR = "#000000"
+FINISH_EVENT = pygame.USEREVENT + 1
 
 
 class Camera(object):
@@ -66,21 +68,26 @@ def main():
         "                                       ",
         "                                       ",
         "                                       ",
+        "                    *                  ",
         "                                       ",
-        "                                       ",
-        "                                       ",
-        "-                                     -",
-        "-                                     -",
+        "                    -                  ",
+        "-                 -                   -",
+        "-               -                     -",
         " ------------------------------------- "]
 
     timer = pygame.time.Clock()
     x = y = 0  # координаты
+    finish = (0,0)
     for row in level:  # вся строка
         for col in row:  # каждый символ
             if col == "-":
                 pf = Platform(x, y)
                 entities.add(pf)
                 platforms.append(pf)
+            elif col == "*":
+                finish = Block(x, y, "%s/blocks/star.png")
+                entities.add(finish)
+
 
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
@@ -93,27 +100,32 @@ def main():
 
     while 1:  # Основной цикл программы
         timer.tick(60)
+
         for e in pygame.event.get():  # Обрабатываем события
-            if e.type == QUIT:
+            if e.type == QUIT or e.type == FINISH_EVENT:
                 raise SystemExit
-            if e.type == KEYDOWN and e.key == K_UP:
+            if e.type == KEYDOWN and e.key == K_w:
                 up = True
-            if e.type == KEYDOWN and e.key == K_LEFT:
+            if e.type == KEYDOWN and e.key == K_a:
                 left = True
-            if e.type == KEYDOWN and e.key == K_RIGHT:
+            if e.type == KEYDOWN and e.key == K_d:
                 right = True
 
-            if e.type == KEYUP and e.key == K_UP:
+            if e.type == KEYUP and e.key == K_w:
                 up = False
-            if e.type == KEYUP and e.key == K_RIGHT:
-                right = False
-            if e.type == KEYUP and e.key == K_LEFT:
+            if e.type == KEYUP and e.key == K_a:
                 left = False
+            if e.type == KEYUP and e.key == K_d:
+                right = False
 
         screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
         camera.update(hero)  # центризируем камеру относительно персонажа
         hero.update(left, right, up, platforms)  # передвижение
+
+        if sprite.collide_rect(hero, finish):
+            pygame.event.post(pygame.event.Event(FINISH_EVENT))
+
         # entities.draw(screen) # отображение
         for e in entities:
             screen.blit(e.image, camera.apply(e))
