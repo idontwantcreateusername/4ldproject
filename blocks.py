@@ -20,9 +20,18 @@ class Block(sprite.Sprite):
 
 
 class Platform(sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, img="blocks/platform.png"):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = image.load("%s/blocks/platform.png" % ICON_DIR)
+        self.image = image.load(img)
+        self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
+
+
+class Spike(sprite.Sprite):
+    def __init__(self, x, y, img="blocks/spike.png"):
+        sprite.Sprite.__init__(self)
+        self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
+        self.image.fill(Color(PLATFORM_COLOR))
+        self.image = image.load(img)
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
