@@ -4,8 +4,8 @@
 from pygame import *
 import os
 
-PLATFORM_WIDTH = 32
-PLATFORM_HEIGHT = 32
+PLATFORM_WIDTH = 108
+PLATFORM_HEIGHT = 108
 PLATFORM_COLOR = "#FF6262"
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 

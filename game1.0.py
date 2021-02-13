@@ -3,8 +3,8 @@ from player import *
 from blocks import *
 
 # Объявляем переменные
-WIN_WIDTH = 800  # Ширина создаваемого окна
-WIN_HEIGHT = 400  # Высота
+WIN_WIDTH = 1920  # Ширина создаваемого окна
+WIN_HEIGHT = 1080  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 BACKGROUND_COLOR = "#000000"
 health = 3
@@ -26,7 +26,7 @@ class Camera(object):
 def camera_configure(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    l, t = -l + WIN_WIDTH / 2, -t + WIN_HEIGHT / 2
+    l, t = -l + WIN_WIDTH / 1.5, -t + WIN_HEIGHT / 1.5
 
     l = min(0, l)  # Не движемся дальше левой границы
     l = max(-(camera.width - WIN_WIDTH), l)  # Не движемся дальше правой границы
@@ -58,9 +58,6 @@ def main():
     # entities.add(hero)
 
     level = [
-        "                                                          ",
-        "                                                          ",
-        "                                                          ",
         "                                                          ",
         "                                                          ",
         "                                                          ",
