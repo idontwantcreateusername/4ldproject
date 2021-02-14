@@ -26,7 +26,7 @@ class Camera(object):
 def camera_configure(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    l, t = -l + WIN_WIDTH / 1.5, -t + WIN_HEIGHT / 1.5
+    l, t = -l + WIN_WIDTH / 2, -t + WIN_HEIGHT / 2
 
     l = min(0, l)  # Не движемся дальше левой границы
     l = max(-(camera.width - WIN_WIDTH), l)  # Не движемся дальше правой границы
@@ -92,6 +92,7 @@ def main():
                 hero_x = x
                 hero_y = y
                 hero = Player(x, y)
+                hands = Hands(x, y)
                 entities.add(hero)
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой

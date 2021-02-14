@@ -53,10 +53,11 @@ class Player(sprite.Sprite):
             boltAnim.append((anim, ANIMATION_DELAY))
         self.boltAnimLeft = pyganim.PygAnimation(boltAnim)
         self.boltAnimLeft.play()
-
+        #       Стоим на месте
         self.boltAnimStay = pyganim.PygAnimation(ANIMATION_STAY)
         self.boltAnimStay.play()
         self.boltAnimStay.blit(self.image, (0, 0))  # По-умолчанию, стоим
+        #       Прыжки
 
         self.boltAnimJumpLeft = pyganim.PygAnimation(ANIMATION_JUMP_LEFT)
         self.boltAnimJumpLeft.play()
@@ -125,3 +126,44 @@ class Player(sprite.Sprite):
                     self.rect.top = p.rect.bottom  # то не движется вверх
                     self.yvel = 0  # и энергия прыжка пропадает
 
+
+class Hands(Player):
+    def __init__(self, x, y):
+        sprite.Sprite.__init__(self)
+        self.xvel = 0  # скорость перемещения. 0 - стоять на месте
+        self.yvel = 0  # скорость вертикального перемещения
+        self.startX = x  # Начальная позиция Х, пригодится когда будем переигрывать уровень
+        self.startY = y
+        self.image = Surface((WIDTH, HEIGHT))
+        self.image.fill(Color(COLOR))
+        self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
+        self.image.set_colorkey(Color(COLOR))
+        self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
+        self.onGround = False  # На земле ли я?
+
+        #        Анимация движения вправо
+        boltAnim = []
+        for anim in ANIMATION_RIGHT:
+            boltAnim.append((anim, ANIMATION_DELAY))
+        self.boltAnimRight = pyganim.PygAnimation(boltAnim)
+        self.boltAnimRight.play()
+        #        Анимация движения влево
+        boltAnim = []
+        for anim in ANIMATION_LEFT:
+            boltAnim.append((anim, ANIMATION_DELAY))
+        self.boltAnimLeft = pyganim.PygAnimation(boltAnim)
+        self.boltAnimLeft.play()
+        #       Стоим на месте
+        self.boltAnimStay = pyganim.PygAnimation(ANIMATION_STAY)
+        self.boltAnimStay.play()
+        self.boltAnimStay.blit(self.image, (0, 0))  # По-умолчанию, стоим
+        #       Прыжки
+
+        self.boltAnimJumpLeft = pyganim.PygAnimation(ANIMATION_JUMP_LEFT)
+        self.boltAnimJumpLeft.play()
+
+        self.boltAnimJumpRight = pyganim.PygAnimation(ANIMATION_JUMP_RIGHT)
+        self.boltAnimJumpRight.play()
+
+        self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
+        self.boltAnimJump.play()
