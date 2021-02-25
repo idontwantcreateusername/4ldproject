@@ -234,11 +234,11 @@ class Bullet(sprite.Sprite):
         self.image = load_image('bullet.png')
         self.rect = self.image.get_rect()
         self.rect.x = hero.rect.x + 150
-        self.rect.y = hero.rect.y + 200
+        self.rect.y = hero.rect.y + 100
         angle = atan(targety - self.rect.y / targetx - self.rect.x)
         self.image = pygame.transform.rotate(self.image, angle)
-        self.vx = (targetx - hero.rect.x) // 10
-        self.vy = (targety - hero.rect.y) // 10
+        self.vx = (targetx - self.rect.x) // 10
+        self.vy = (targety - self.rect.y) // 10
 
     def update(self):
         self.rect.x += self.vx
