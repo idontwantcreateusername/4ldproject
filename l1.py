@@ -14,6 +14,7 @@ class Camera(object):
 
     def update(self, target):
         self.state = self.camera_func(self.state, target.rect)
+        print(self.state)
 
 
 def camera_configure(camera, target_rect):
@@ -62,7 +63,7 @@ def upd(hero, lefthand, righthand, armor, weapon, ac):
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
-fps = 60
+fps = 112
 all_sprites = pygame.sprite.Group()
 animationlimit = 111
 border = Border(0, -1238)
@@ -75,11 +76,12 @@ image = load_image("galeon.png")
 screen.blit(image, (0, 0))
 clock = pygame.time.Clock()
 pygame.init()
+targets = []
 all_sprites.add(border)
 cam = Camera(camera_configure, 5977, 1754)
 level = pygame.sprite.Group()
 mh = Hero1(960, 540, 'udp', '', 'cross')
-target = Target(1080, 900)
+target = Target(2000, 1100)
 cpt = Npc(2000, 540, 'ucpt', '')
 lhcpt = LeftHand(cpt)
 rhcpt = RightHand(cpt)
@@ -105,12 +107,13 @@ rhct = RightHand(contwo)
 mharmor = Armor(mh, 'void')
 all_sprites.add(mhtent, mh, mharmor, lhmh, weapon, rhmh, cpt, rhcpt, lhcpt, conone, contwo,
                 lhco, lhct, rhct, rhco, cononetent)
-disarmed = True
+disarmed = False
 npc.append(cpt)
 npc.append(conone)
 npc.append(contwo)
 running = True
 bullets = []
+targets.append(target, cpt, lhcpt, rhcpt, )
 while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
@@ -144,7 +147,7 @@ while running:
         if event.type == pygame.MOUSEWHEEL:
             disarmed = not disarmed
         if event.type == pygame.MOUSEBUTTONDOWN and weapon.condition == '':
-            weapon.shoot(mh, event.pos[0], event.pos[1], all_sprites, bullets)
+            weapon.shoot(mh, event.pos[0] - cam.state[0], event.pos[1] - cam.state[1], all_sprites, bullets)
 
     if animationcount == animationlimit:
         animationcount = 0
@@ -171,6 +174,7 @@ while running:
     mharmor.update(mh)
     border.update()
     weapon.update(mh, disarmed)
+
     rhmh.update(mh)
     land.update()
     cam.update(mh)
