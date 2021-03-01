@@ -25,9 +25,9 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(size)
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     screen.blit(load_image('Без имени.png'), (0, 0))
-    newgamecoords = 0, 0, 100, 100
+    newgamecoords = 109, 907, 475, 1012
     loadgamecoords = 0, 0, 0, 0
-    exitcoords = 0, 0, 0, 0
+    exitcoords = 1460, 912, 1820, 1010
     size = 0
     qw = False
     clock = pygame.time.Clock()
