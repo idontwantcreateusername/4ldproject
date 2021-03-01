@@ -4,6 +4,7 @@ import os
 from objects import *
 import random
 
+
 class Camera(object):
     def __init__(self, camera_func, width, height):
         self.camera_func = camera_func
@@ -45,6 +46,7 @@ def talk(hero):
             di.fill('капитан Рамирез: отличная работа, лейтенант')
             cptdia2 = True
 
+
 def answer():
     global cptdia1, cptdia2, inds
     if cptdia1:
@@ -56,6 +58,7 @@ def answer():
         cptdia2 = False
     else:
         di.fill('')
+
 
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
@@ -179,9 +182,11 @@ while running:
             else:
                 mh.weapon.name = 'crossbow'
         if event.type == pygame.MOUSEBUTTONDOWN and mh.weapon.condition == '' and mh.weapon.name == 'rifle':
-            mh.weapon.shoot(mh, event.pos[0] - cam.state[0] + 1, event.pos[1] - cam.state[1], all_sprites, bullets, time)
+            mh.weapon.shoot(mh, event.pos[0] - cam.state[0] + 1, event.pos[1] - cam.state[1], all_sprites, bullets,
+                            time)
         if event.type == pygame.MOUSEBUTTONDOWN and mh.weapon.crosscondition == '' and mh.weapon.name == 'crossbow':
-            mh.weapon.shoot(mh, event.pos[0] - cam.state[0] + 1, event.pos[1] - cam.state[1], all_sprites, bullets, time)
+            mh.weapon.shoot(mh, event.pos[0] - cam.state[0] + 1, event.pos[1] - cam.state[1], all_sprites, bullets,
+                            time)
 
     if animationcount == animationlimit:
         animationcount = 0
@@ -234,6 +239,7 @@ while running:
     mhhp.update()
     screen.blit(di.image, (0, 0))
     if not mh.disarmed and ftodo:
+        
         cttext = 'закройте палатку'
         ftodo = False
     if not mhtent.opened and stodo:
@@ -244,7 +250,8 @@ while running:
         ttodo = False
     if not ttodo:
         cttext = 'доложите капитану'
-
+    ct.kill()
+    ct = Ct()
     screen.blit(mhhp.image, (mhhp.rect.x, mhhp.rect.y))
     screen.blit(ct.image, (ct.rect.x, ct.rect.y))
     font = pygame.font.SysFont("Arial", 15)
