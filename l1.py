@@ -227,7 +227,7 @@ while running:
     while len(q) < len(all_sprites):
         w = pygame.sprite.Sprite()
         w.image = load_image('void.png')
-        w.rect = pygame.Rect(0, 0, 6000, 6000)
+        w.rect = pygame.Rect(0, 0, 600, 2000)
         for i in all_sprites:
             if pygame.Rect(i).bottom < pygame.Rect(w).bottom and i not in q:
                 w = i
